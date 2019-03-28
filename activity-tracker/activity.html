@@ -22,6 +22,7 @@
 
                 <form>
 
+                    <!-- Show any errors at the top of the form -->
                     <div class="alert alert-danger" v-show="errors && errors.length > 0">
                         <li v-for="error in errors">{{ error }}</li>
                     </div>
@@ -44,13 +45,13 @@
                     </div>
 
                     <div class="form-check-inline">
-                        <input id="v2" class="form-check-input" type="radio" v-bind:value="traditional" v-model="digitalTraditional">
-                        <label class="form-check-label" for="v1">Traditional</label>
+                        <input id="v2" class="form-check-input" type="radio" v-bind:value="loud" v-model="loudQuiet">
+                        <label class="form-check-label" for="v1">Loud</label>
                     </div>
 
                     <div class="form-check-inline">
-                        <input id="v1" class="form-check-input" type="radio" v-bind:value="digital" v-model="digitalTraditional">
-                        <label class="form-check-label" for="v1">Digital</label>
+                        <input id="v1" class="form-check-input" type="radio" v-bind:value="quiet" v-model="loudQuiet">
+                        <label class="form-check-label" for="v1">Quiet</label>
                     </div>
 
                     <div>
@@ -64,6 +65,7 @@
         <div class="card">
             <h2 class="card-header">Activity Record</h2>
 
+            <!-- Show good old table of yelling practice sessions -->
             <div class="card-body">
                 <h3>{{ activityRecords.length }} records</h3>
 
@@ -73,13 +75,13 @@
                             <th>When</th>
                             <th>How long?</th>
                             <th>Type</th>
-                            <th>Digital or traditional?</th>
+                            <th>Loud or quiet?</th>
                         </tr>
                         <tr v-for="record in activityRecords">
                             <td>{{ record.when | shortDateFormat }}</td>
                             <td>{{ record.howLong }}</td>
                             <td>{{ record.type }}</td>
-                            <td>{{ record.digitalTraditional }}</td>
+                            <td>{{ record.loudQuiet }}</td>
                         </tr>
                     </table>
                 </div>
@@ -108,15 +110,15 @@
         let app = new Vue({
             el: "#app",
             data: {
-                activity: 'Practice Art',  // If you like, replace in your own activity name e.g. studying, running, playing video games.... 
+                activity: 'Practice Yelling',  // If you like, replace in your own activity name e.g. studying, running, playing video games.... 
                 when: '',
                 howLong: 1,
-                type: 'sketching',
-                digitalTraditional: 'traditional',   // you may wish to rename this 
+                type: 'fun',
+                loudQuiet: 'loud',   // you may wish to rename this 
                 activityRecords: [],
-                types: ['sketching', 'drawing', 'painting'],    // replace with appropriate options for your activity e.g. for video game, ['PC', 'PlayStation', 'Xbox' ]
-                digital: 'digital',          // on a computer, tablet                // replace with appropriate options for your activity e.g. for video games, single player and multi player 
-                traditional: 'traditional',   // painting, drawing etc. on paper
+                types: ['raspy', 'scary', 'fun'],    // replace with appropriate options for your activity e.g. for video game, ['PC', 'PlayStation', 'Xbox' ]
+                loud: 'loud',          // on a computer, tablet                // replace with appropriate options for your activity e.g. for video games, single player and multi player 
+                quiet: 'quiet',   // painting, drawing etc. on paper
                 errors: []
             },
             methods: {
@@ -132,7 +134,7 @@
                     }
 
                     if (this.errors.length == 0) {
-                        let newActivityRecord = { when: this.whenLocal, howLong: this.howLong, type: this.type, digitalTraditional: this.digitalTraditional }
+                        let newActivityRecord = { when: this.whenLocal, howLong: this.howLong, type: this.type, loudQuiet: this.loudQuiet }
                         this.activityRecords.push(newActivityRecord)
                         this.activityRecords.sort(function (r1, r2) { return r1.when.getTime() - r2.when.getTime() })
                     }
